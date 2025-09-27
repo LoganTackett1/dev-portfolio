@@ -1,0 +1,140 @@
+@font-face {
+  font-family: "ubuntu";
+  src: url("./ubuntu_font/Ubuntu-Regular.ttf");
+  font-weight: normal;
+}
+@font-face {
+  font-family: "ubuntu";
+  src: url("./ubuntu_font/Ubuntu-Bold.ttf");
+  font-weight: bold;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  font-family: "ubuntu";
+  font-weight: normal;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  width: 100vw;
+  height: auto;
+  display: grid;
+  grid-template-rows: 1fr;
+  grid-template-columns: 1fr;
+}
+
+.canvas-container {
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1;
+}
+
+canvas {
+  opacity: 0.7;
+}
+
+#content {
+  z-index: 2;
+  position: absolute;
+  width: 100%;
+  height: 2000px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+header {
+  width: 100%;
+  height: 33vh;
+  margin-top: 33vh;
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: 1fr;
+}
+
+header > h1 {
+  justify-self: center;
+  align-self: center;
+  width: 80%;
+  font-size: 33px;
+  font-weight: normal;
+  text-align: center;
+  color: #3b3b3b;
+}
+
+header > h1 > strong {
+  color: #009063;
+  font-weight: bold;
+}
+
+#navbar {
+  z-index: 3;
+  position: fixed;
+  width: 100%;
+  height: 100vh;
+
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: flex-start;
+}
+
+#navbar-button {
+  margin-left: 10px;
+  margin-top: 10px;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 5px;
+
+  width: 40px;
+  height: 40px;
+  border: solid #009063 3px;
+  border-radius: 10px;
+  background: transparent;
+  transition: margin-left 0.33s;
+}
+
+#navbar-container {
+  width: 50%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+  background-color: #009063;
+  transition: transform 0.33s;
+  transform-origin: left;
+}
+
+#navbar-container > button {
+  margin-left: 20px;
+  margin-top: 20px;
+  font-size: 30px;
+  color: white;
+  background: transparent;
+  border: none;
+}
+
+#navbar-container.nav-off {
+  transform: scaleX(0);
+}
+
+#navbar-button.nav-off {
+  margin-left: calc(10px - 50%);
+}
+
+.bar {
+  width: 25px;
+  height: 3px;
+  background-color: #009063;
+}
