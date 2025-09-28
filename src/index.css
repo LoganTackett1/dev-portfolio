@@ -1,12 +1,5 @@
 @import "tailwindcss";
 
-* {
-  margin: 0;
-  padding: 0;
-  font-family: "ubuntu";
-  font-weight: normal;
-}
-
 body {
   margin: 0;
   padding: 0;
@@ -23,4 +16,12 @@ body {
   margin: 0;
   padding: 0;
   border: none;
+}
+
+@layer base {
+  *, *::before, *::after {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
 }
