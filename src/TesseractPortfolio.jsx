@@ -11,7 +11,7 @@ export default function TesseractPortfolio() {
     <div id="main-wrapper" className="w-full h-full flex flex-col justify-center text-white">
       <BackgroundCanvas />
       <Navbar />
-      <main className="relative z-10 h-[3000px]">
+      <main className="relative z-10">
         <Hero />
         <About />
         <Projects />
