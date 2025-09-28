@@ -7,7 +7,7 @@ return (
     <header id="navbar" className="fixed flex justify-center top-0 left-0 right-0 z-20">
     <div
         id="navbar-shell"
-        className="mx-auto max-w-6xl px-4 sm:px-6 pl-[10px] p2-[10px]"
+        className="mx-auto max-w-6xl px-4 sm:px-6"
     >
         <div
         id="navbar-bar"
