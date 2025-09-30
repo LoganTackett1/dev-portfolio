@@ -10,21 +10,13 @@ export function Hero() {
           className="flex flex-col items-center justify-center text-center gap-6"
         >
           <div id="hero-kicker" className="text-sm font-medium text-blue-700/90 tracking-wide">
-            Software Engineer • Full-stack • Systems
+            Recent BSCS Grad • Early Career Engineer
           </div>
 
-          <h1
-            id="hero-title"
-            className="text-4xl md:text-6xl font-extrabold tracking-tight leading-tight text-gray-900 drop-shadow"
-          >
-            I build fast, reliable apps with{" "}
-            <span
-              id="hero-highlight"
-              className="bg-gradient-to-r from-blue-700 to-blue-500 bg-clip-text text-transparent"
-            >
-              Go & React
-            </span>
+          <h1 id="hero-title" className="text-4xl md:text-6xl font-extrabold tracking-tight leading-tight text-gray-900 drop-shadow">
+            Turning ideas into <span id="hero-highlight" className="bg-gradient-to-r from-blue-700 to-blue-500 bg-clip-text text-transparent">working software</span>
           </h1>
+
 
           <p
             id="hero-subtitle"

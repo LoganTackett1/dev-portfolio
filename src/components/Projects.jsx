@@ -1,4 +1,8 @@
 import { ProjectCard } from "./ProjectCard";
+import brainstormingLight from "../assets/brainstorming-light.png";
+import brainstormingDark from "../assets/brainstorming-dark.png";
+import rubiks from "../assets/rubiks.png";
+
 
 export function Projects() {
   return (
@@ -12,7 +16,7 @@ export function Projects() {
         <ProjectCard
           idPrefix="brainstorming"
           title="Brainstorming Dashboard"
-          imageSrc="https://images.unsplash.com/photo-1519389950473-47ba0277781c?q=80&w=1200&auto=format&fit=crop"
+          imageSrc={brainstormingLight}
           description="Boards, share links, JWT auth, Go API, MySQL, S3 thumbnails, AWS deploy."
           tech="Go, MySQL, React, Tailwind, AWS (EC2, S3), Docker"
           repoUrl="https://github.com/your/repo1"
@@ -21,10 +25,10 @@ export function Projects() {
         />
         <ProjectCard
           idPrefix="rubiks"
-          title="Screen-reader micro-SaaS"
-          imageSrc="https://images.unsplash.com/photo-1518779578993-ec3579fee39f?q=80&w=1200&auto=format&fit=crop"
-          description="Browser extension that reads pages aloud with click-to-read and DOM traversal."
-          tech="Browser APIs, Web Speech, MV3, React, Tailwind, Go backend"
+          title="Rubiks Cube"
+          imageSrc={rubiks}
+          description="<fill this> threejs rubiks cube draggable sides scramble button reset button solve button via kociemba's alg desktop and mobile controls."
+          tech="<fix this up> js, threejs, cubejs"
           repoUrl="https://github.com/your/repo2"
           demoUrl="https://yourapp2.example.com"
           loomUrl="https://www.loom.com/share/your-video-2"
