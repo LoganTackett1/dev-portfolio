@@ -1,4 +1,5 @@
-import { ProjectCard } from "./ProjectCard";
+import { BrainstormingCard } from "./BrainstormingCard";
+import { RubiksCard } from "./RubiksCard";
 import brainstormingLight from "../assets/brainstorming-light.png";
 import brainstormingDark from "../assets/brainstorming-dark.png";
 import rubiks from "../assets/rubiks.png";
@@ -9,11 +10,10 @@ export function Projects() {
     <section id="projects" className="relative z-10 mx-auto max-w-6xl px-4 sm:px-6 py-20">
       <div id="projects-head" className="mb-6 flex items-end justify-between">
         <h2 id="projects-title" className="text-2xl font-semibold text-gray-900">Projects</h2>
-        <p id="projects-note" className="text-sm text-gray-500">/* add more by duplicating a ProjectCard */</p>
       </div>
 
       <div id="projects-grid" className="grid grid-cols-1 gap-6 items-start">
-        <ProjectCard
+        <BrainstormingCard
           idPrefix="brainstorming"
           title="Brainstorming Dashboard"
           imageSrc={brainstormingLight}
@@ -23,7 +23,7 @@ export function Projects() {
           demoUrl="https://yourapp.example.com"
           loomUrl="https://www.loom.com/share/your-video-1"
         />
-        <ProjectCard
+        <RubiksCard
           idPrefix="rubiks"
           title="Rubiks Cube"
           imageSrc={rubiks}

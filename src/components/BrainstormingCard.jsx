@@ -7,7 +7,7 @@ function slugify(s) {
     .replace(/(^-|-$)+/g, "");
 }
 
-export function ProjectCard({
+export function BrainstormingCard({
   title,
   imageSrc,
   description,
