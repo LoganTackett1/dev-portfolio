@@ -16,7 +16,8 @@ export function Projects() {
         <BrainstormingCard
           idPrefix="brainstorming"
           title="Brainstorming Dashboard"
-          imageSrc={brainstormingLight}
+          imageSrcLight={brainstormingLight}
+          imageSrcDark={brainstormingDark}
           description="Boards, share links, JWT auth, Go API, MySQL, S3 thumbnails, AWS deploy."
           tech="Go, MySQL, React, Tailwind, AWS (EC2, S3), Docker"
           repoUrl="https://github.com/your/repo1"
@@ -30,7 +31,7 @@ export function Projects() {
           description="<fill this> threejs rubiks cube draggable sides scramble button reset button solve button via kociemba's alg desktop and mobile controls."
           tech="<fix this up> js, threejs, cubejs"
           repoUrl="https://github.com/your/repo2"
-          demoUrl="https://yourapp2.example.com"
+          demoUrl="https://logantackett1.github.io/rubiks-threejs/?zoom=35"
           loomUrl="https://www.loom.com/share/your-video-2"
         />
       </div>

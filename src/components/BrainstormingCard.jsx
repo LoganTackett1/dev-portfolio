@@ -9,7 +9,8 @@ function slugify(s) {
 
 export function BrainstormingCard({
   title,
-  imageSrc,
+  imageSrcLight,
+  imageSrcDark,
   description,
   tech,
   repoUrl,
@@ -21,11 +22,44 @@ export function BrainstormingCard({
   const contentRef = useRef(null);
   const [contentHeight, setContentHeight] = useState(0);
 
+  const [sliderPos, setSliderPos] = useState(0);
+  const containerRef = useRef(null);
+  const draggingRef = useRef(false);
+
   const pid = useMemo(() => idPrefix || slugify(title), [idPrefix, title]);
 
   useEffect(() => {
     if (contentRef.current) setContentHeight(contentRef.current.scrollHeight);
   }, [open, tech]);
+
+  useEffect(() => {
+    const handleMove = (e) => {
+      if (!draggingRef.current || !containerRef.current) return;
+      const rect = containerRef.current.getBoundingClientRect();
+      const x = e.clientX ?? (e.touches && e.touches[0]?.clientX);
+      if (x) {
+        let newPos = ((x - rect.left) / rect.width) * 100;
+        newPos = Math.max(0, Math.min(100, newPos));
+        setSliderPos(newPos);
+      }
+    };
+
+    const handleUp = () => {
+      draggingRef.current = false;
+    };
+
+    window.addEventListener("mousemove", handleMove);
+    window.addEventListener("touchmove", handleMove);
+    window.addEventListener("mouseup", handleUp);
+    window.addEventListener("touchend", handleUp);
+
+    return () => {
+      window.removeEventListener("mousemove", handleMove);
+      window.removeEventListener("touchmove", handleMove);
+      window.removeEventListener("mouseup", handleUp);
+      window.removeEventListener("touchend", handleUp);
+    };
+  }, []);
 
   return (
     <article
@@ -33,18 +67,55 @@ export function BrainstormingCard({
       className="rounded-3xl border border-white/40 bg-white/20 backdrop-blur-[3px] shadow-md overflow-hidden transition hover:shadow-lg"
     >
       <div id={`${pid}-top`} className="p-6">
-        <div id={`${pid}-row`} className="flex flex-col md:flex-row gap-5 h-[320px] md:h-[300px]">
-          <div id={`${pid}-media`} className="md:w-2/5">
+        <div
+          id={`${pid}-row`}
+          className="flex flex-col md:flex-row gap-5 h-[320px] md:h-[300px]"
+        >
+          {/* Image comparison container */}
+          <div
+            id={`${pid}-media`}
+            ref={containerRef}
+            className="md:w-2/5 relative rounded-2xl border border-white/40 overflow-hidden select-none"
+          >
+            {/* Light image */}
             <img
-              id={`${pid}-image`}
-              src={imageSrc}
+              src={imageSrcLight}
               alt=""
-              className="w-full h-40 md:h-full object-cover rounded-2xl border border-white/40"
+              draggable="false"
+              className="absolute inset-0 w-full h-full object-cover pointer-events-none"
             />
+
+            {/* Dark image (clipped by sliderPos) */}
+            <img
+              src={imageSrcDark}
+              alt=""
+              draggable="false"
+              className="absolute inset-0 w-full h-full object-cover pointer-events-none"
+              style={{
+                clipPath: `inset(0 ${100 - sliderPos}% 0 0)`,
+              }}
+            />
+
+            {/* Vertical bar */}
+            <div
+              className="absolute top-0 bottom-0 w-0.5 bg-white"
+              style={{ left: `${sliderPos}%` }}
+            >
+              {/* Circle handle (only draggable element) */}
+              <div
+                className="absolute top-1/2 -translate-y-1/2 -translate-x-1/2 w-6 h-6 rounded-full bg-white border-2 border-gray-400 shadow cursor-col-resize"
+                onMouseDown={() => (draggingRef.current = true)}
+                onTouchStart={() => (draggingRef.current = true)}
+              ></div>
+            </div>
           </div>
 
+          {/* Body */}
           <div id={`${pid}-body`} className="md:w-3/5 flex flex-col">
-            <h3 id={`${pid}-title`} className="text-lg font-semibold text-gray-900">
+            <h3
+              id={`${pid}-title`}
+              className="text-lg font-semibold text-gray-900"
+            >
               {title}
             </h3>
 
@@ -56,7 +127,10 @@ export function BrainstormingCard({
               {description}
             </p>
 
-            <div id={`${pid}-actions`} className="mt-auto flex items-center gap-3 pt-3">
+            <div
+              id={`${pid}-actions`}
+              className="mt-auto flex items-center gap-3 pt-3"
+            >
               {repoUrl && (
                 <a
                   id={`${pid}-repo`}
@@ -102,6 +176,7 @@ export function BrainstormingCard({
         </div>
       </div>
 
+      {/* Expandable tech section */}
       <div
         id={`${pid}-bottom`}
         style={{ maxHeight: open ? contentHeight : 0 }}
@@ -114,7 +189,10 @@ export function BrainstormingCard({
           className="p-6 border-t border-white/50 bg-white/30 backdrop-blur-[3px]"
         >
           <div id={`${pid}-tech`}>
-            <div id={`${pid}-tech-title`} className="text-xs uppercase tracking-wide text-gray-600">
+            <div
+              id={`${pid}-tech-title`}
+              className="text-xs uppercase tracking-wide text-gray-600"
+            >
               Tech
             </div>
             <div id={`${pid}-tech-list`} className="mt-2 text-sm text-gray-900">

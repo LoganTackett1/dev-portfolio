@@ -9,11 +9,11 @@ function slugify(s) {
 
 export function RubiksCard({
   title,
-  imageSrc,
+  // imageSrc,  // no longer used
   description,
   tech,
   repoUrl,
-  demoUrl,
+  demoUrl,      // use this for your iframe src, e.g. "https://logantackett1.github.io/rubiks-threejs/?zoom=20"
   loomUrl,
   idPrefix,
 }) {
@@ -27,6 +27,11 @@ export function RubiksCard({
     if (contentRef.current) setContentHeight(contentRef.current.scrollHeight);
   }, [open, tech]);
 
+  // fallback if demoUrl is missing
+  const iframeSrc =
+    demoUrl ||
+    "https://logantackett1.github.io/rubiks-threejs/?zoom=35";
+
   return (
     <article
       id={`${pid}-project-card`}
@@ -34,13 +39,27 @@ export function RubiksCard({
     >
       <div id={`${pid}-top`} className="p-6">
         <div id={`${pid}-row`} className="flex flex-col md:flex-row gap-5 h-[320px] md:h-[300px]">
+          {/* Cropped iframe container */}
           <div id={`${pid}-media`} className="md:w-2/5">
-            <img
-              id={`${pid}-image`}
-              src={imageSrc}
-              alt=""
-              className="w-full h-40 md:h-full object-cover rounded-2xl border border-white/40"
-            />
+            <div
+              id={`${pid}-iframe-wrap`}
+              className="relative w-full h-40 md:h-full rounded-2xl border border-white/40 overflow-hidden"
+            >
+              {/* 
+                We simulate a 4x4 cut by making the iframe 200% both ways,
+                then shifting it -25% left/top so the container (which is 50% of that area)
+                shows the middle 2 rows and 2 columns.
+              */}
+              <iframe
+                id={`${pid}-iframe`}
+                src={iframeSrc}
+                title={`${title} Live Embed`}
+                loading="lazy"
+                className="absolute w-[200%] h-[200%] -left-[50%] -top-[50%] border-0"
+                // keep interactions; no pointer-events-none so user can rotate cube
+                // sandbox / allow attributes can be added if you later need restrictions
+              />
+            </div>
           </div>
 
           <div id={`${pid}-body`} className="md:w-3/5 flex flex-col">
