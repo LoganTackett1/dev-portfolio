@@ -20,8 +20,8 @@ export function Projects() {
           imageSrcDark={brainstormingDark}
           description="Boards, share links, JWT auth, Go API, MySQL, S3 thumbnails, AWS deploy."
           tech="Go, MySQL, React, Tailwind, AWS (EC2, S3), Docker"
-          repoUrl="https://github.com/your/repo1"
-          demoUrl="https://yourapp.example.com"
+          repoUrl="https://github.com/LoganTackett1/brainstorming-dashboard"
+          demoUrl="https://simplebrainstorm.com/"
           loomUrl="https://www.loom.com/share/your-video-1"
         />
         <RubiksCard

@@ -11,18 +11,16 @@ export function BrainstormingCard({
   title,
   imageSrcLight,
   imageSrcDark,
-  description,
-  tech,
   repoUrl,
   demoUrl,
-  loomUrl,
+  loomUrl = "#",
   idPrefix,
 }) {
   const [open, setOpen] = useState(false);
   const contentRef = useRef(null);
   const [contentHeight, setContentHeight] = useState(0);
 
-  const [sliderPos, setSliderPos] = useState(0); // 0 = fully light
+  const [sliderPos, setSliderPos] = useState(0);
   const containerRef = useRef(null);
   const draggingRef = useRef(false);
 
@@ -30,9 +28,8 @@ export function BrainstormingCard({
 
   useEffect(() => {
     if (contentRef.current) setContentHeight(contentRef.current.scrollHeight);
-  }, [open, tech]);
+  }, [open]);
 
-  // Window-level drag handling (active only while draggingRef is true)
   useEffect(() => {
     const handleMove = (e) => {
       if (!draggingRef.current || !containerRef.current) return;
@@ -70,7 +67,7 @@ export function BrainstormingCard({
       <div id={`${pid}-top`} className="p-6">
         <div
           id={`${pid}-row`}
-          className="flex flex-col md:flex-row gap-5 h-[320px] md:h-[300px]"
+          className="flex flex-col md:flex-row gap-5 h-[340px] md:h-[300px] relative"
         >
           {/* Image comparison container */}
           <div
@@ -78,7 +75,6 @@ export function BrainstormingCard({
             ref={containerRef}
             className="md:w-2/5 relative rounded-2xl border border-white/40 overflow-hidden select-none h-40 md:h-full"
           >
-            {/* Base light image */}
             <img
               src={imageSrcLight}
               alt=""
@@ -86,7 +82,6 @@ export function BrainstormingCard({
               className="absolute inset-0 w-full h-full object-cover pointer-events-none"
             />
 
-            {/* Dark image masked by slider position */}
             <img
               src={imageSrcDark}
               alt=""
@@ -95,12 +90,10 @@ export function BrainstormingCard({
               style={{ clipPath: `inset(0 ${100 - sliderPos}% 0 0)` }}
             />
 
-            {/* Vertical bar */}
             <div
               className="absolute top-0 bottom-0 w-0.5 bg-white"
               style={{ left: `${sliderPos}%` }}
             >
-              {/* Circle handle (only draggable element) */}
               <div
                 className="absolute top-1/2 -translate-y-1/2 -translate-x-1/2 w-6 h-6 rounded-full bg-white border-2 border-gray-400 shadow cursor-col-resize"
                 onMouseDown={() => (draggingRef.current = true)}
@@ -116,19 +109,50 @@ export function BrainstormingCard({
 
           {/* Body */}
           <div id={`${pid}-body`} className="md:w-3/5 flex flex-col">
-            <h3 id={`${pid}-title`} className="text-lg font-semibold text-gray-900">
+            <h3
+              id={`${pid}-title`}
+              className="text-lg font-semibold text-gray-900"
+            >
               {title}
             </h3>
 
-            <p
-              id={`${pid}-desc`}
-              className="mt-2 text-sm text-gray-800 overflow-hidden"
-              style={{ maxHeight: "3.75rem" }}
-            >
-              {description}
+            <p id={`${pid}-desc`} className="mt-2 text-sm text-gray-800">
+              A collaborative brainstorming dashboard where users can create
+              boards with custom titles and thumbnails, add cards with text or
+              images, and share boards with friends or colleagues. Boards can be
+              shared via email invitations with read/edit permissions or by
+              generating secure share links. The interface is simple and
+              interactive, with polish features like a draggable bar that lets
+              you reveal the dark theme version of the app. <br />
+              <span className="text-gray-900 font-medium">
+                Built as a full-stack application using React (TypeScript,
+                Tailwind) on the frontend, Go with MySQL on the backend, and
+                hosted on AWS (S3 + Lightsail).
+              </span>
             </p>
 
-            <div id={`${pid}-actions`} className="mt-auto flex items-center gap-3 pt-3">
+            {/* Demo info */}
+            <div
+              id={`${pid}-demo-info`}
+              className="mt-3 p-2 rounded-lg bg-blue-50 text-xs text-gray-700 border border-blue-200"
+            >
+              Demo Board (Share link with edit permissions):{" "}
+              <a
+                href="https://simplebrainstorm.com/share/4c9cfe76f93885d8be48b3e6fc8e96b2"
+                target="_blank"
+                className="text-blue-600 underline"
+              >
+                Try it here
+              </a>
+              <br />
+              Demo Credentials: <code>demo@example.com</code> /{" "}
+              <code>mypassword</code>
+            </div>
+
+            <div
+              id={`${pid}-actions`}
+              className="mt-auto flex items-center gap-3 pt-3"
+            >
               {repoUrl && (
                 <a
                   id={`${pid}-repo`}
@@ -167,14 +191,14 @@ export function BrainstormingCard({
                 aria-expanded={open}
                 aria-controls={`${pid}-tech-wrap`}
               >
-                {open ? "Hide Tech" : "Show Tech"}
+                {open ? "Hide Details" : "Behind the Scenes"}
               </button>
             </div>
           </div>
         </div>
       </div>
 
-      {/* Expandable tech section */}
+      {/* Expandable details section */}
       <div
         id={`${pid}-bottom`}
         style={{ maxHeight: open ? contentHeight : 0 }}
@@ -191,10 +215,37 @@ export function BrainstormingCard({
               id={`${pid}-tech-title`}
               className="text-xs uppercase tracking-wide text-gray-600"
             >
-              Tech
+              Behind the Scenes
             </div>
             <div id={`${pid}-tech-list`} className="mt-2 text-sm text-gray-900">
-              {tech}
+              <ul className="list-disc list-inside space-y-1">
+                <li>
+                  <strong>Authentication:</strong> JWT-based auth with bcrypt
+                  password hashing, backed by a MySQL <code>users</code> table.
+                </li>
+                <li>
+                  <strong>Sharing:</strong> Two approaches:
+                  <ul className="list-disc list-inside ml-5">
+                    <li>
+                      Email invite → <code>board_access</code> table (foreign
+                      keys link user & board, access level: read/edit).
+                    </li>
+                    <li>
+                      Share link → <code>board_share</code> table (random token
+                      + board ID + access level).
+                    </li>
+                  </ul>
+                </li>
+                <li>
+                  <strong>Scalability:</strong> Dockerized for consistent deploys.
+                  (No horizontal scaling implemented yet.)
+                </li>
+                <li>
+                  <strong>Stack:</strong> React + TypeScript + Tailwind,
+                  React-Draggable, Go backend, MySQL database, hosted on AWS S3
+                  & Lightsail.
+                </li>
+              </ul>
             </div>
           </div>
         </div>
