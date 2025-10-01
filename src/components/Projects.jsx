@@ -30,8 +30,8 @@ export function Projects() {
           imageSrc={rubiks}
           description="<fill this> threejs rubiks cube draggable sides scramble button reset button solve button via kociemba's alg desktop and mobile controls."
           tech="<fix this up> js, threejs, cubejs"
-          repoUrl="https://github.com/your/repo2"
-          demoUrl="https://logantackett1.github.io/rubiks-threejs/?zoom=35"
+          repoUrl="https://github.com/LoganTackett1/rubiks-threejs"
+          demoUrl="https://logantackett1.github.io/rubiks-threejs/"
           loomUrl="https://www.loom.com/share/your-video-2"
         />
       </div>
