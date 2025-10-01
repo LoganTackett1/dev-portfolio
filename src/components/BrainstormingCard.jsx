@@ -22,7 +22,7 @@ export function BrainstormingCard({
   const contentRef = useRef(null);
   const [contentHeight, setContentHeight] = useState(0);
 
-  const [sliderPos, setSliderPos] = useState(0);
+  const [sliderPos, setSliderPos] = useState(0); // 0 = fully light
   const containerRef = useRef(null);
   const draggingRef = useRef(false);
 
@@ -32,12 +32,13 @@ export function BrainstormingCard({
     if (contentRef.current) setContentHeight(contentRef.current.scrollHeight);
   }, [open, tech]);
 
+  // Window-level drag handling (active only while draggingRef is true)
   useEffect(() => {
     const handleMove = (e) => {
       if (!draggingRef.current || !containerRef.current) return;
       const rect = containerRef.current.getBoundingClientRect();
       const x = e.clientX ?? (e.touches && e.touches[0]?.clientX);
-      if (x) {
+      if (x != null) {
         let newPos = ((x - rect.left) / rect.width) * 100;
         newPos = Math.max(0, Math.min(100, newPos));
         setSliderPos(newPos);
@@ -49,7 +50,7 @@ export function BrainstormingCard({
     };
 
     window.addEventListener("mousemove", handleMove);
-    window.addEventListener("touchmove", handleMove);
+    window.addEventListener("touchmove", handleMove, { passive: true });
     window.addEventListener("mouseup", handleUp);
     window.addEventListener("touchend", handleUp);
 
@@ -75,9 +76,9 @@ export function BrainstormingCard({
           <div
             id={`${pid}-media`}
             ref={containerRef}
-            className="md:w-2/5 relative rounded-2xl border border-white/40 overflow-hidden select-none"
+            className="md:w-2/5 relative rounded-2xl border border-white/40 overflow-hidden select-none h-40 md:h-full"
           >
-            {/* Light image */}
+            {/* Base light image */}
             <img
               src={imageSrcLight}
               alt=""
@@ -85,15 +86,13 @@ export function BrainstormingCard({
               className="absolute inset-0 w-full h-full object-cover pointer-events-none"
             />
 
-            {/* Dark image (clipped by sliderPos) */}
+            {/* Dark image masked by slider position */}
             <img
               src={imageSrcDark}
               alt=""
               draggable="false"
               className="absolute inset-0 w-full h-full object-cover pointer-events-none"
-              style={{
-                clipPath: `inset(0 ${100 - sliderPos}% 0 0)`,
-              }}
+              style={{ clipPath: `inset(0 ${100 - sliderPos}% 0 0)` }}
             />
 
             {/* Vertical bar */}
@@ -106,16 +105,18 @@ export function BrainstormingCard({
                 className="absolute top-1/2 -translate-y-1/2 -translate-x-1/2 w-6 h-6 rounded-full bg-white border-2 border-gray-400 shadow cursor-col-resize"
                 onMouseDown={() => (draggingRef.current = true)}
                 onTouchStart={() => (draggingRef.current = true)}
-              ></div>
+                aria-label="Drag to compare light/dark"
+                role="slider"
+                aria-valuemin={0}
+                aria-valuemax={100}
+                aria-valuenow={Math.round(sliderPos)}
+              />
             </div>
           </div>
 
           {/* Body */}
           <div id={`${pid}-body`} className="md:w-3/5 flex flex-col">
-            <h3
-              id={`${pid}-title`}
-              className="text-lg font-semibold text-gray-900"
-            >
+            <h3 id={`${pid}-title`} className="text-lg font-semibold text-gray-900">
               {title}
             </h3>
 
@@ -127,10 +128,7 @@ export function BrainstormingCard({
               {description}
             </p>
 
-            <div
-              id={`${pid}-actions`}
-              className="mt-auto flex items-center gap-3 pt-3"
-            >
+            <div id={`${pid}-actions`} className="mt-auto flex items-center gap-3 pt-3">
               {repoUrl && (
                 <a
                   id={`${pid}-repo`}

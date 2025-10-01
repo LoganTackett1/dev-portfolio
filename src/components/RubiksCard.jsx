@@ -9,11 +9,10 @@ function slugify(s) {
 
 export function RubiksCard({
   title,
-  // imageSrc,  // no longer used
   description,
   tech,
   repoUrl,
-  demoUrl,      // use this for your iframe src, e.g. "https://logantackett1.github.io/rubiks-threejs/?zoom=20"
+  demoUrl,
   loomUrl,
   idPrefix,
 }) {
@@ -45,19 +44,12 @@ export function RubiksCard({
               id={`${pid}-iframe-wrap`}
               className="relative w-full h-40 md:h-full rounded-2xl border border-white/40 overflow-hidden"
             >
-              {/* 
-                We simulate a 4x4 cut by making the iframe 200% both ways,
-                then shifting it -25% left/top so the container (which is 50% of that area)
-                shows the middle 2 rows and 2 columns.
-              */}
               <iframe
                 id={`${pid}-iframe`}
                 src={iframeSrc}
                 title={`${title} Live Embed`}
                 loading="lazy"
                 className="absolute w-[200%] h-[200%] -left-[50%] -top-[50%] border-0"
-                // keep interactions; no pointer-events-none so user can rotate cube
-                // sandbox / allow attributes can be added if you later need restrictions
               />
             </div>
           </div>
