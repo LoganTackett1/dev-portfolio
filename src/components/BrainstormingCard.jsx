@@ -13,7 +13,6 @@ export function BrainstormingCard({
   imageSrcDark,
   repoUrl,
   demoUrl,
-  loomUrl = "#",
   idPrefix,
 }) {
   const [open, setOpen] = useState(false);
@@ -171,16 +170,6 @@ export function BrainstormingCard({
                   className="inline-flex items-center justify-center rounded-xl border border-gray-300 bg-white/70 px-3 py-1.5 text-xs font-medium text-gray-900 hover:border-blue-400 hover:text-blue-700 transition"
                 >
                   Live App
-                </a>
-              )}
-              {loomUrl && (
-                <a
-                  id={`${pid}-loom`}
-                  href={loomUrl}
-                  target="_blank"
-                  className="inline-flex items-center justify-center rounded-xl border border-gray-300 bg-white/70 px-3 py-1.5 text-xs font-medium text-gray-900 hover:border-blue-400 hover:text-blue-700 transition"
-                >
-                  Loom Demo
                 </a>
               )}
 
