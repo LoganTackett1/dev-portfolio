@@ -36,7 +36,7 @@ export function Contact() {
 
           <a
             id="contact-linkedin"
-            href="www.linkedin.com/in/logan-tackett-764402383"
+            href="https://www.linkedin.com/in/logan-tackett-764402383"
             target="_blank"
             className="inline-flex items-center justify-center rounded-xl border border-gray-300 bg-white px-5 py-2.5 text-sm md:text-base font-semibold text-gray-900 transition hover:border-blue-400 hover:text-blue-700"
           >

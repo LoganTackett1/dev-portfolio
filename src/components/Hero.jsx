@@ -56,7 +56,7 @@ export function Hero() {
             </a>
             <a
               id="hero-cta-resume"
-              href="/resume.pdf"
+              href="/dev-portfolio/resume.pdf"
               target="_blank"
               className="inline-flex items-center justify-center rounded-xl border border-gray-300 bg-white px-5 py-2.5 text-sm md:text-base font-semibold text-gray-900 transition hover:border-blue-400 hover:text-blue-700"
             >
