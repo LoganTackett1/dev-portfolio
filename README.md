@@ -1,7 +1,7 @@
 # Logan Tackett – Developer Portfolio
 
 ### 🌐 Live Site  
-[**https://logantackett1.github.io/dev-portfolio/**](https://logantackett1.github.io/dev-portfolio/)
+[**logantackett.dev**](https://logantackett.dev/)
 
 ---
 
