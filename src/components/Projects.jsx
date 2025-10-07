@@ -1,9 +1,10 @@
 import { BrainstormingCard } from "./BrainstormingCard";
 import { RubiksCard } from "./RubiksCard";
+import { SimulationCard } from "./SimulationCard";
 import brainstormingLight from "../assets/brainstorming-light.png";
 import brainstormingDark from "../assets/brainstorming-dark.png";
 import rubiks from "../assets/rubiks.png";
-
+import simulation from "../assets/simulation.png";
 
 export function Projects() {
   return (
@@ -33,6 +34,12 @@ export function Projects() {
           repoUrl="https://github.com/LoganTackett1/rubiks-threejs"
           demoUrl="https://logantackett1.github.io/rubiks-threejs/"
           loomUrl="https://www.loom.com/share/your-video-2"
+        />
+        <SimulationCard
+          title="Simulation Playground"
+          imageSrc={simulation}
+          repoUrl="https://github.com/LoganTackett1/chance-lab"
+          demoUrl="https://chance-lab-frontend.onrender.com"
         />
       </div>
     </section>
