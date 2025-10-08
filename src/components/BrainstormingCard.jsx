@@ -135,17 +135,14 @@ export function BrainstormingCard({
               id={`${pid}-demo-info`}
               className="mt-3 p-2 rounded-lg bg-blue-50 text-xs text-gray-700 border border-blue-200"
             >
-              Demo Board (Share link with edit permissions):{" "}
+              Demo Board (Share link with read permissions):{" "}
               <a
-                href="https://simplebrainstorm.com/share/4c9cfe76f93885d8be48b3e6fc8e96b2"
+                href="https://simplebrainstorm.com/share/6052ee1249da01153701fb93c3f3349d"
                 target="_blank"
                 className="text-blue-600 underline"
               >
                 Try it here
               </a>
-              <br />
-              Demo Credentials: <code>demo@example.com</code> /{" "}
-              <code>mypassword</code>
             </div>
 
             <div
