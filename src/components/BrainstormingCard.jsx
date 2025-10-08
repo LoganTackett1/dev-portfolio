@@ -143,6 +143,8 @@ export function BrainstormingCard({
               >
                 Try it here
               </a>
+              <br />
+              Sign in to access all features (board creation, editing, sharing).
             </div>
 
             <div
